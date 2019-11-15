@@ -3,6 +3,7 @@
 namespace Jakmall\Recruitment\Calculator\Commands;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputArgument;
 
 class AddCommand extends Command
 {
@@ -16,7 +17,18 @@ class AddCommand extends Command
      */
     protected $description;
 
+    /**
+     * @var string
+     */
+    protected static $defaultName = 'add';
+    
+
     public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function configure()
     {
         $commandVerb = $this->getCommandVerb();
 
@@ -26,7 +38,8 @@ class AddCommand extends Command
             $this->getCommandPassiveVerb()
         );
         $this->description = sprintf('%s all given Numbers', ucfirst($commandVerb));
-    }
+        $this->addArgument('numbers', InputArgument::IS_ARRAY, 'The number to be added');
+    }   
 
     protected function getCommandVerb(): string
     {
