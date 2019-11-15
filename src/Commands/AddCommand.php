@@ -31,14 +31,15 @@ class AddCommand extends Command
     public function configure()
     {
         $commandVerb = $this->getCommandVerb();
+        $commandPassiveVerb = $this->getCommandVerb();
 
         $this->signature = sprintf(
             '%s {numbers* : The numbers to be %s}',
             $commandVerb,
-            $this->getCommandPassiveVerb()
+            $commandPassiveVerb
         );
         $this->description = sprintf('%s all given Numbers', ucfirst($commandVerb));
-        $this->addArgument('numbers', InputArgument::IS_ARRAY, 'The number to be added');
+        $this->addArgument('numbers', InputArgument::IS_ARRAY, sprintf('The number to be %s', $commandPassiveVerb));
     }   
 
     protected function getCommandVerb(): string
