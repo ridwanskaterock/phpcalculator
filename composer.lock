@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "66355d8038db043b6f2a0b18518f8aa2",
+    "content-hash": "c6706d452c87c5faff9366b717468149",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -318,6 +318,42 @@
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
             "time": "2019-04-22T13:12:35+00:00"
+        },
+        {
+            "name": "jajo/jsondb",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/donjajo/php-jsondb.git",
+                "reference": "8096cd418f73be3746439101406b4bacde5f0631"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/donjajo/php-jsondb/zipball/8096cd418f73be3746439101406b4bacde5f0631",
+                "reference": "8096cd418f73be3746439101406b4bacde5f0631",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jajo\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jajo",
+                    "email": "me@donjajo.com"
+                }
+            ],
+            "description": "A PHP Class that reads JSON file as a database. Use for sample DBs",
+            "time": "2019-10-12T11:58:25+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -803,7 +839,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "jajo/jsondb": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
