@@ -16,17 +16,16 @@ class JSONStorage implements StorageInterface
 
     public function insert(Array $data): void
     {
-        $this->storage->insert( $this->fileName, 
-            [ 
-                'name' => 'Thomas', 
-                'state' => 'Nigeria', 
-                'age' => 22 
-            ]
-        );
+        $this->storage->insert( $this->fileName, $data);
     }
 
     public function clear(): void
     {
+        $this
+            ->storage
+            ->from($this->fileName)
+            ->delete()
+        ;
     }
 
     public function get($filter): array
@@ -34,12 +33,12 @@ class JSONStorage implements StorageInterface
         $historical = $this
             ->storage
             ->from($this->fileName)
-            ->get();
+            ->get()
+        ;
 
         return array_map(function($data){
             return [$data->name, $data->age, $data->state];
         }, $historical);
     }
-
 
 }

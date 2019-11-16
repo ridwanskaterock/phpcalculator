@@ -27,7 +27,6 @@ class HistoryCommand extends Command
      */
     protected static $defaultName = 'history:list';
     
-
     public function __construct()
     {
         parent::__construct();
@@ -51,6 +50,7 @@ class HistoryCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $filters = $this->getInput();
+
         $this->filterValidated($filters);
         $this->executeFilter($output, $filters);
     }
@@ -66,7 +66,7 @@ class HistoryCommand extends Command
                         implode($allowedFilters, ', ')
                     )
                 ); 
-                exit;
+                $this->close();
             }
         }   
     }
@@ -76,9 +76,10 @@ class HistoryCommand extends Command
         $histories = $this->storage->get($filters);
 
         if (count($histories) == 0) {
-            $this->comment('History is empty'); die;
+            $this->comment('History is empty');
+            $this->close();
         }
-        
+
         $table = new Table($output);
         $table
             ->setHeaders(['No', 'Command', 'Description', 'Result', 'Output', 'Time'])
@@ -97,8 +98,14 @@ class HistoryCommand extends Command
             'pow',
         ];
     }
-    protected function getInput()
+
+    protected function getInput(): array
     {
         return $this->argument('filters');
+    }
+
+    public function close(): void 
+    {
+        die;
     }
 }
