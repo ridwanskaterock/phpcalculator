@@ -62,7 +62,6 @@ class MultiplyCommand extends Command
         $numbers = $this->getInput();
         $description = $this->generateCalculationDescription($numbers);
         $result = $this->calculateAll($numbers);
-
         $output = sprintf('%s = %s', $description, $result);
 
         $this->addHistory($description, $result, $output);
