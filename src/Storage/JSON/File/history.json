@@ -1,2 +1,9 @@
 [
+    {
+        "command": "add",
+        "description": "1 + 2",
+        "result": 3,
+        "output": "1 + 2 = 3",
+        "time": "2019-11-16 07:52:31"
+    }
 ]
