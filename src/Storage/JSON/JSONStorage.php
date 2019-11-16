@@ -7,7 +7,15 @@ use Jajo\JSONDB;
 
 class JSONStorage implements StorageInterface
 {
+    /**
+     * @var string
+     */
     protected $fileName = 'history.json';
+
+    /**
+     * @var integer
+     */
+    protected $iteration = 1;
 
     public function __construct()
     {
@@ -36,8 +44,15 @@ class JSONStorage implements StorageInterface
             ->get()
         ;
 
-        return array_map(function($data){
-            return [$data->name, $data->age, $data->state];
+        return array_map(function($data) use($no){
+            return [
+                $this->iteration++,
+                ucfirst($data->command), 
+                $data->description, 
+                $data->result,
+                $data->output,
+                $data->time,
+            ];
         }, $historical);
     }
 
