@@ -48,6 +48,9 @@ class JSONStorage implements StorageInterface
             $historical,
             function($data) use($filter) {
                 $data = (object) $data;
+                if (count($filter) == 0) {
+                    return true;
+                }
                 return in_array($data->command, $filter);
             }
         );
