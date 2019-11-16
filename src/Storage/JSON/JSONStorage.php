@@ -44,7 +44,16 @@ class JSONStorage implements StorageInterface
             ->get()
         ;
 
-        return array_map(function($data) use($no){
+        $historical = array_filter(
+            $historical,
+            function($data) use($filter) {
+                $data = (object) $data;
+                return in_array($data->command, $filter);
+            }
+        );
+
+        return array_map(function($data){
+            $data = (object) $data;
             return [
                 $this->iteration++,
                 ucfirst($data->command), 
