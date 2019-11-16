@@ -4,6 +4,9 @@ namespace Jakmall\Recruitment\Calculator\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
+use Jakmall\Recruitment\Calculator\Storage\StorageService;
+use Jakmall\Recruitment\Calculator\Storage\JSON\JSONStorage;
+use DateTime;
 
 class PowCommand extends Command
 {
@@ -26,6 +29,9 @@ class PowCommand extends Command
     public function __construct()
     {
         parent::__construct();
+
+        $JSONStorage = new JSONStorage;
+        $this->storage = new StorageService($JSONStorage);
     }
 
     public function configure()
@@ -58,8 +64,11 @@ class PowCommand extends Command
         $exp = $this->getExp();
         $description = $this->generateCalculationDescription($base, $exp);
         $result = $this->calculate($base, $exp);
+        $output = sprintf('%s = %s', $description, $result);
 
-        $this->comment(sprintf('%s = %s', $description, $result));
+        $this->addHistory($description, $result, $output);
+
+        $this->comment($output);
     }
 
     protected function getBase()
@@ -93,5 +102,25 @@ class PowCommand extends Command
     protected function calculate($number1, $number2)
     {
         return pow($number1, $number2);
+    }
+
+    /**
+     * @param string $description
+     * @param double $result
+     * @param string $output
+     *
+     * @return int|float
+     */
+    protected function addHistory($description, $result, $output): void
+    {
+        $this->storage
+            ->insert([
+                'command' => $this->getCommandVerb(),
+                'description' => $description, 
+                'result' => $result, 
+                'output' => $output, 
+                'time' => (new DateTime)->format('Y-m-d H:i:s')
+            ])
+        ;
     }
 }
