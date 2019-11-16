@@ -33,6 +33,7 @@ class JSONStorage implements StorageInterface
             ->storage
             ->from($this->fileName)
             ->delete()
+            ->trigger()
         ;
     }
 
